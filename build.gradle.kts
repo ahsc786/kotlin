@@ -35,6 +35,8 @@ buildscript {
             classpath("org.jetbrains.kotlin.ultimate:buildSrc:1.0")
         }
     }
+
+    project(":prepare:idea-plugin").evaluationDependsOn(":prepare")
 }
 
 plugins {
@@ -279,10 +281,6 @@ fun Task.listConfigurationContents(configName: String) {
 val defaultJvmTarget = "1.8"
 val defaultJavaHome = jdkPath(defaultJvmTarget)
 val ignoreTestFailures by extra(project.findProperty("ignoreTestFailures")?.toString()?.toBoolean() ?: project.hasProperty("teamcity"))
-
-if (findProperty("cidrPluginsEnabled")?.toString()?.toBoolean() == true) {
-    project(":kotlin-ultimate").evaluationDependsOn(":prepare")
-}
 
 allprojects {
 
