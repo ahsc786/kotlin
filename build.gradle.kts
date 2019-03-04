@@ -280,6 +280,10 @@ val defaultJvmTarget = "1.8"
 val defaultJavaHome = jdkPath(defaultJvmTarget)
 val ignoreTestFailures by extra(project.findProperty("ignoreTestFailures")?.toString()?.toBoolean() ?: project.hasProperty("teamcity"))
 
+if (findProperty("cidrPluginsEnabled")?.toString()?.toBoolean() == true) {
+    project(":kotlin-ultimate").evaluationDependsOn(":prepare")
+}
+
 allprojects {
 
     jvmTarget = defaultJvmTarget
